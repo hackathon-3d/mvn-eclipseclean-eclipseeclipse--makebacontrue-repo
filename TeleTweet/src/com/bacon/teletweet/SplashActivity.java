@@ -1,21 +1,18 @@
 package com.bacon.teletweet;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
-
 import com.bacon.teletweet.Pojos.Show;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import org.json.JSONArray;
+import org.json.JSONObject;
 
 public class SplashActivity extends Activity {
 	private static final String SHOW_LISTING_STRING = "showlisting";
@@ -25,16 +22,6 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_splash);
-
-		// setup button listeners
-		final ImageButton t = (ImageButton) findViewById(R.id.slot1);
-		t.setOnClickListener(new View.OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				Log.i("TeleTweet","I did a thing");
-				gotoCommandCenter((Show)t.getTag());
-			}
-		});
 
 		// lets start grabbing our movie images
 		InputStream inputStream = getResources().openRawResource(
@@ -130,5 +117,12 @@ public class SplashActivity extends Activity {
 		Log.d("Showing", "image");
 		button.setImageBitmap(loadedShow.getBitmap());
 		button.setTag(showsList.get(position));
+		final ImageButton buttonRef = button;
+		button.setOnClickListener(new View.OnClickListener() {
+				@Override
+				public void onClick(View v) {
+					gotoCommandCenter((Show)buttonRef.getTag());
+				}
+			});
 	}
 }

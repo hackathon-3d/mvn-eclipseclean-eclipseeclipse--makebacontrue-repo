@@ -136,4 +136,27 @@ public class TwitterUtil {
 	public interface SearchCallback {
 		public void searched(Map<String, QueryResult> results);
 	}
+	
+	public static void sendTweet(String tweet)
+	{
+		new AsyncTask<String, Void, Void>(){
+			@Override
+			public Void doInBackground(String... tweets)
+			{
+				try
+				{
+					for(String s : tweets)
+					{
+						twit.updateStatus(s);
+					}
+				}
+				catch(Exception e)
+				{
+					Log.e("TeleTweet","Tweeting failed in TwitterUtil! "+e.getMessage());
+				}
+				return null;
+			}
+
+		}.execute(tweet);
+	}
 }

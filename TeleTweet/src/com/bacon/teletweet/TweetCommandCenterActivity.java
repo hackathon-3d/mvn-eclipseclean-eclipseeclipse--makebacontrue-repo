@@ -80,6 +80,35 @@ public class TweetCommandCenterActivity extends Activity {
 		}
 	}
 	
+	public void startTweet(String tag)
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Enter tweet");
+		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_TEXT);
+		builder.setView(input);
+
+		builder.setPositiveButton("Send", new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					String tweet = input.getText().toString();
+					if(tweet.length() > 140){tweet = tweet.substring(0,140);}
+					TwitterUtil.sendTweet(tweet);
+				}
+			});
+
+		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface dialog, int which)
+				{
+					dialog.cancel();
+				}
+			});
+
+		builder.create().show();
+	}
+	
 	public void addNewHashtag()
 	{
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -117,6 +146,8 @@ public class TweetCommandCenterActivity extends Activity {
 		{
 			int grayColor = 0xFF222222;
 			int lightColor = 0xFFEEEEEE;
+			int miniGray = 0xFF555555;
+			int miniLight = 0xFFBBBBBB;
 			
 			RelativeLayout rl = new RelativeLayout(TweetCommandCenterActivity.this);
 			RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.FILL_PARENT);
@@ -129,6 +160,7 @@ public class TweetCommandCenterActivity extends Activity {
 				LinearLayout hashTagRow = new LinearLayout(TweetCommandCenterActivity.this);
 				hashTagRow.setId(555);
 				hashTagRow.setOrientation(LinearLayout.HORIZONTAL);
+				hashTagRow.setBackgroundColor(pos%2==0?miniGray:miniLight);
 				rl.addView(hashTagRow);
 				
 				TextView queryName = new TextView(TweetCommandCenterActivity.this);
@@ -136,6 +168,22 @@ public class TweetCommandCenterActivity extends Activity {
 				queryName.setTextSize(28);
 				queryName.setTextColor(pos%2==0?lightColor:grayColor);
 				hashTagRow.addView(queryName);
+				
+				ImageView shareView = new ImageView(TweetCommandCenterActivity.this);
+				shareView.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_share));
+				
+				View.OnClickListener listener = new View.OnClickListener(){
+					@Override
+					public void onClick(View v)
+					{
+						startTweet(hashtags.get(pos));
+					}
+				};
+				
+				shareView.setOnClickListener(listener);
+				queryName.setOnClickListener(listener);
+				
+				hashTagRow.addView(shareView);
 				
 				View v = new View(TweetCommandCenterActivity.this);
 				LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(0,0,1);
