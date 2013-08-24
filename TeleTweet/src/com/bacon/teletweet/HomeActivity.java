@@ -14,7 +14,7 @@ public class HomeActivity extends Activity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_splash);
+        setContentView(R.layout.home_login);
 		
 		Button b = (Button)findViewById(R.id.loginButton);
 		b.setOnClickListener(new View.OnClickListener(){
@@ -33,6 +33,7 @@ public class HomeActivity extends Activity {
 			public void callBack()
 			{
 				//go to next screen
+				startActivity(new Intent(HomeActivity.this, SplashActivity.class), null);
 			}
 		}, i);
 	}
