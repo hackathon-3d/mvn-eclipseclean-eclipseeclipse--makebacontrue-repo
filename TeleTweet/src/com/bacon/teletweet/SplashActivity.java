@@ -9,8 +9,11 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.TextView;
 
 import com.bacon.teletweet.Pojos.Show;
 
@@ -22,6 +25,15 @@ public class SplashActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home_splash);
+
+		// setup button listeners
+		TextView t = (TextView) findViewById(R.id.show1);
+		t.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				gotoCommandCenter();
+			}
+		});
 
 		// lets start grabbing our movie images
 		InputStream inputStream = getResources().openRawResource(
@@ -55,5 +67,9 @@ public class SplashActivity extends Activity {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	public void gotoCommandCenter() {
+		startActivity(new Intent(this, TweetCommandCenterActivity.class), null);
 	}
 }
