@@ -15,6 +15,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout.LayoutParams;
+import com.bacon.teletweet.Pojos.Show;
+import com.bacon.teletweet.Utility.HashtagKeeper;
 import com.bacon.teletweet.Utility.TwitterUtil;
 import twitter4j.QueryResult;
 
@@ -22,6 +24,7 @@ public class TweetCommandCenterActivity extends Activity {
 
 	private Map<String, QueryResult> tweetLists;
 	private List<String> hashtags;
+	private Show show;
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,9 @@ public class TweetCommandCenterActivity extends Activity {
         setContentView(R.layout.tweet_command_center);
 		
 		tweetLists = new HashMap<String, QueryResult>(5);
+		
+		Bundle b = getIntent().getExtras();
+		show = b.getParcelable("Show");
 		
 		hashtags = new ArrayList<String>(5);
 		buildHashTags();
@@ -58,10 +64,20 @@ public class TweetCommandCenterActivity extends Activity {
 	private void buildHashTags()
 	{
 		hashtags.clear();
-		hashtags.add("#BreakingBad");
-		hashtags.add("#WalterWhite");
-		hashtags.add("#bryancranston");
-		hashtags.add("#BBWalterWhite");
+		
+		if(show == null)
+		{Log.i("TeleTweet","Ooops!");return;}
+		
+		List<String> tags = HashtagKeeper.getHashtagsForShow(TweetCommandCenterActivity.this, show.getName());
+		if(tags != null && tags.size() > 0)
+		{hashtags = tags; return;}
+		else
+		{
+			hashtags.add("#BreakingBad");
+			hashtags.add("#WalterWhite");
+			hashtags.add("#bryancranston");
+			hashtags.add("#BBWalterWhite");
+		}
 	}
 	
 	public void addNewHashtag()
@@ -79,6 +95,7 @@ public class TweetCommandCenterActivity extends Activity {
 				String tag = input.getText().toString();
 				if(!tag.contains("#")){tag = "#"+tag;}
 				hashtags.add(tag);
+				HashtagKeeper.storeHashtagsForShow(TweetCommandCenterActivity.this, show.getName(), hashtags);
 				adapter.notifyDataSetChanged();
 				search();
 			}
@@ -132,6 +149,7 @@ public class TweetCommandCenterActivity extends Activity {
 					public void onClick(View v)
 					{
 						hashtags.remove(hashtags.get(pos));
+						HashtagKeeper.storeHashtagsForShow(TweetCommandCenterActivity.this, show.getName(), hashtags);
 						adapter.notifyDataSetChanged();
 					}
 				});

@@ -1,38 +1,31 @@
 package com.bacon.teletweet.Pojos;
 
+import com.android.volley.*;
+import javax.xml.xpath.*;
+
+import android.content.Context;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+import com.android.volley.Response.ErrorListener;
+import com.android.volley.Response.Listener;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
+import com.bacon.teletweet.Utility.authVars;
 import java.io.StringReader;
 import java.util.Iterator;
-
-import javax.xml.xpath.XPath;
-import javax.xml.xpath.XPathConstants;
-import javax.xml.xpath.XPathExpressionException;
-import javax.xml.xpath.XPathFactory;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.xml.sax.InputSource;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.net.Uri;
-import android.util.Log;
-
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.Response.ErrorListener;
-import com.android.volley.Response.Listener;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.ImageRequest;
-import com.android.volley.toolbox.StringRequest;
-import com.android.volley.toolbox.Volley;
-import com.bacon.teletweet.Utility.authVars;
-
 /**
  * Created by Droidweb on 8/23/13.
  */
-public class Show {
+public class Show implements Parcelable{
 	private final String name;
 	private String description;
 	private String imageURL;
@@ -151,4 +144,53 @@ public class Show {
 	public interface CallbackInterface {
 		public void showLoaded(Show show);
 	}
+	
+		/* Parcelling */
+	public void writeToParcel(Parcel toParcel, int flags)
+	{
+	/*private final String name;
+	private String description;
+	private String imageURL;
+	private Bitmap bitmap;
+	private String id;*/
+		toParcel.writeString(name);
+		toParcel.writeString(description);
+		toParcel.writeString(imageURL);
+		toParcel.writeString(id);
+		//bitmap.writeToParcel(toParcel, 0);
+	}
+
+	public static final Parcelable.Creator<Show> CREATOR = new Parcelable.Creator<Show>()
+	{
+		@Override
+		public Show createFromParcel(Parcel in)
+		{
+			try
+			{
+				Show s = new Show(in.readString());
+				s.setDescription(in.readString());
+				s.setImageURL(in.readString());
+				s.setId(in.readString());
+				//in.setDataPosition(0);
+				//s.setBitmap(Bitmap.CREATOR.createFromParcel(in));
+				return s;
+			}
+			catch(Exception e)
+			{
+				Log.e("TeleTweet","Bad news, dude, Show didn't Parcel correctly!");
+				return null;
+			}
+		}
+
+		@Override public Show[] newArray(int size){return new Show[size];}
+	};
+
+	private Show(String pName){name=pName;mRequestQueue=null;}
+	private void setDescription(String pDesc){description=pDesc;}
+	private void setImageURL(String pURL){imageURL=pURL;}
+	private void setId(String pId){id=pId;}
+	
+	public String getName(){return name;}
+	
+	@Override public int describeContents(){return 0;}
 }
