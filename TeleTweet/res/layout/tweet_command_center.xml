@@ -25,7 +25,9 @@
             android:id="@+id/foo"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_margin="15dip" >
+            android:layout_marginBottom="15dip"
+            android:layout_marginLeft="15dip"
+            android:layout_marginRight="15dip" >
 
             <TextView
                 android:id="@+id/showDescription"
