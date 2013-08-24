@@ -10,6 +10,7 @@ import org.json.JSONObject;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +31,7 @@ public class SplashActivity extends Activity {
 
 		setContentView(R.layout.home_splash);
 
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		// lets start grabbing our movie images
 		InputStream inputStream = getResources().openRawResource(
 				R.raw.movieseed);
