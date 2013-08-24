@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
-import com.bacon.teletweet.R;
  
 public class TwitterAuthenticationActivity extends Activity {
   
@@ -28,31 +27,26 @@ public class TwitterAuthenticationActivity extends Activity {
    public void onLoadResource(WebView view, String url) {
     checkURL(url);
    }
-    
+
   });
   webView.loadUrl(getIntent().getStringExtra(URL));
   setContentView(webView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
  }
   
  private void checkURL(String url) {
-  if(url.contains("oauth_verifier=")) {
-   Uri uri = Uri.parse(url);
-            String oauthVerifier = uri.getQueryParameter("oauth_verifier");
-            Intent i = new Intent();
-            i.putExtra("oauth_verifier", oauthVerifier);
-            setResult(RESULT_OK, i);
-            finish();
-        }
-  else if(url.contains("callback?denied")) {
-            setResult(RESULT_FIRST_USER);
-            finish();
-  }
-  //Banned URLs
-  else if(url.contains("twitter.com/home")){
-            setResult(RESULT_FIRST_USER);
-            finish();
+	 Log.i("TeleTweet",url);
+  if(url.contains("oauth_verifier")){
+	  String verifier = Uri.parse(url).getQueryParameter("oauth_verifier");
+	  Intent i = new Intent();
+	  i.putExtra("oauth_verifier", verifier);
+	  setResult(RESULT_OK, i);
+	  finish();
+	 }
+  else if(url.contains("authorize") || url.contains("twimg")) {
   }
   else {
+      setResult(RESULT_FIRST_USER);
+      finish();
   }
    
  }

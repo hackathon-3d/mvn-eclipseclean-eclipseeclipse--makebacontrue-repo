@@ -4,6 +4,7 @@ import twitter4j.*;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -23,12 +24,6 @@ public class HomeActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-    }
-
-	@Override
-	public void onResume()
-	{
-		super.onResume();
 		
 		//setup config
 		ConfigurationBuilder cb = new ConfigurationBuilder();
@@ -86,26 +81,44 @@ public class HomeActivity extends Activity {
 	{
 		rqTok = t;
 		Intent i = new Intent(this, TwitterAuthenticationActivity.class);
-		i.putExtra(TwitterAuthenticationActivity.URL, rqTok.getAuthorizationURL());
+		String authToken = Uri.parse(rqTok.getAuthorizationURL()).getQueryParameter("oauth_token");
+		Log.i("TeleTweet","Token is "+authToken);
+		i.putExtra(TwitterAuthenticationActivity.URL, rqTok.getAuthorizationURL()+"&oauth_callback=http://www.oob.com");
 		startActivityForResult(i, 5);
 	}
 	
 	@Override
-	public void onActivityResult(int request, int result, Intent data)
+	public void onActivityResult(int request, int result, final Intent data)
 	{
 		super.onActivityResult(request, result, data);
 		Log.i("TeleTweet","Hey, I got here!");
 		
-		try
-		{
-			AccessToken ac = twit.getOAuthAccessToken(rqTok, data.getStringExtra("oauth_verifier"));
-			twit.setOAuthAccessToken(ac);
-			twit.search(new Query("foo"));
-		}
-		catch (TwitterException e)
-		{
-			Log.e("TeleTweet","bleh");
-		}
+			new AsyncTask<Void, Void, AccessToken>(){
+				@Override public AccessToken doInBackground(Void... blah)
+				{
+					try
+					{
+						return twit.getOAuthAccessToken(rqTok, data.getStringExtra("oauth_verifier"));
+					}
+					catch (TwitterException e)
+					{
+						Log.i("TeleTweet","Man, I couldn't even get the auth token. "+e.getMessage());
+						return null;
+					}
+				}
+
+				@Override public void onPostExecute(AccessToken tok)
+				{
+					Log.i("TeleTweet","C'mon c'mon c'mon");
+					OauthAccessDone(tok);
+				}
+			}.execute();
+	}
+	
+	public void OauthAccessDone(AccessToken t)
+	{
+		twit.setOAuthAccessToken(t);
+		twit.search(new Query("foo"));
 	}
 	
     @Override
