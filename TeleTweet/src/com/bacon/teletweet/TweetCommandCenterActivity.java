@@ -7,6 +7,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -26,6 +27,7 @@ public class TweetCommandCenterActivity extends Activity {
 	private Map<String, QueryResult> tweetLists;
 	private List<String> hashtags;
 	private Show show;
+	private Handler refresher = new Handler();
 	
 	@Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +65,21 @@ public class TweetCommandCenterActivity extends Activity {
 					adapter.notifyDataSetChanged();
 				}
 			});
+			
+		//start again soon;
+		refresher.postDelayed(refresh, 10000);
+	}
+	
+	private Runnable refresh = new Runnable(){
+			@Override
+			public void run(){search();}
+		};
+		
+	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
+		refresher.removeCallbacks(refresh);
 	}
 	
 	private void buildHashTags()
