@@ -64,7 +64,7 @@ public class SplashActivity extends Activity {
 				final int _i = i;
 				String showName = jArray.getString(i);
 				// make your show object
-				Show tmpShow = new Show(showName);
+				Show tmpShow = new Show(showName, this);
 				tmpShow.loadShowInfo(new Show.CallbackInterface() {
 
 					@Override
