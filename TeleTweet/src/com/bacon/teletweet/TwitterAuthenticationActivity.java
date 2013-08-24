@@ -56,7 +56,7 @@ public class TwitterAuthenticationActivity extends Activity {
 	@Override
 	public void onBackPressed() {
 		super.onBackPressed();
-		setResult(RESULT_FIRST_USER);
+		setResult(RESULT_CANCELED);
 		finish();
 	}
 
