@@ -13,6 +13,7 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout.LayoutParams;
@@ -50,6 +51,7 @@ public class TweetCommandCenterActivity extends Activity {
 		//setup page adapter
 		ViewPager v = (ViewPager)findViewById(R.id.tweetdecks);
 		v.setPageMargin(15);
+		v.setPadding(7,7,7,7);
 		v.setAdapter(adapter);
 	}
 	
@@ -59,7 +61,6 @@ public class TweetCommandCenterActivity extends Activity {
 				@Override
 				public void searched(Map<String, QueryResult> results)
 				{
-					Log.i("TeleTweet","THAT'S how you do Async, bitches.");
 					tweetLists.clear();
 					tweetLists.putAll(results);
 					adapter.notifyDataSetChanged();
@@ -181,16 +182,24 @@ public class TweetCommandCenterActivity extends Activity {
 				hashTagRow.setId(555);
 				hashTagRow.setOrientation(LinearLayout.HORIZONTAL);
 				hashTagRow.setBackgroundColor(pos%2==0?miniGray:miniLight);
+				LinearLayout.LayoutParams toomanyparams = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.FILL_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+				hashTagRow.setLayoutParams(toomanyparams);
 				rl.addView(hashTagRow);
 				
+				ImageView shareView = new ImageView(TweetCommandCenterActivity.this);
+				shareView.setImageDrawable(getResources().getDrawable(pos%2==0?R.drawable.new_tweet_:R.drawable.new_tweet));
+				LinearLayout.LayoutParams imParams = new LinearLayout.LayoutParams(42,42);
+				shareView.setLayoutParams(imParams);
+				hashTagRow.addView(shareView);
+				
 				TextView queryName = new TextView(TweetCommandCenterActivity.this);
+				LinearLayout.LayoutParams queryParams = new LinearLayout.LayoutParams(0,LinearLayout.LayoutParams.FILL_PARENT,1);
+				queryName.setLayoutParams(queryParams);
+				queryName.setGravity(Gravity.CENTER_VERTICAL|Gravity.CENTER_HORIZONTAL);
 				queryName.setText(hashtags.get(pos));
 				queryName.setTextSize(28);
 				queryName.setTextColor(pos%2==0?lightColor:grayColor);
 				hashTagRow.addView(queryName);
-				
-				ImageView shareView = new ImageView(TweetCommandCenterActivity.this);
-				shareView.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_menu_share));
 				
 				View.OnClickListener listener = new View.OnClickListener(){
 					@Override
@@ -199,19 +208,12 @@ public class TweetCommandCenterActivity extends Activity {
 						startTweet(hashtags.get(pos));
 					}
 				};
-				
 				shareView.setOnClickListener(listener);
 				queryName.setOnClickListener(listener);
 				
-				hashTagRow.addView(shareView);
-				
-				View v = new View(TweetCommandCenterActivity.this);
-				LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(0,0,1);
-				v.setLayoutParams(p);
-				hashTagRow.addView(v);
-				
 				ImageView iv = new ImageView(TweetCommandCenterActivity.this);
-				iv.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_delete));
+				iv.setImageDrawable(getResources().getDrawable(pos%2==0?R.drawable.close_:R.drawable.close));
+				iv.setLayoutParams(new LinearLayout.LayoutParams(42,42));
 				iv.setOnClickListener(new View.OnClickListener(){
 					@Override
 					public void onClick(View v)
@@ -292,7 +294,6 @@ public class TweetCommandCenterActivity extends Activity {
 		}
 		
 		@Override public void finishUpdate(ViewGroup vg){}
-		//@Override public void startupdate(ViewGroup vg){}
 		@Override public void restoreState(Parcelable p, ClassLoader cl){}
 		@Override public Parcelable saveState(){return null;}
 	};

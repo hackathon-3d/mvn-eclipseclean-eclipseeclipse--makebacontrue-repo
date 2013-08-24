@@ -106,14 +106,6 @@ public class TwitterUtil {
 					for(String s : queries)
 					{
 						QueryResult qr = twit.search(new Query(s));
-						if(qr == null)
-						{
-							Log.i("TeleTweet","What gives?");
-						}
-						else
-						{
-							Log.i("TeleTweet","So it's fine.");
-						}
 						results.put(s, qr);
 					}
 				}
