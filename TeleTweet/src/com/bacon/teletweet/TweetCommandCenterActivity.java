@@ -1,15 +1,13 @@
 package com.bacon.teletweet;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import android.widget.*;
+import java.util.*;
 
-import twitter4j.QueryResult;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Parcelable;
@@ -20,19 +18,17 @@ import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
-import android.widget.TextView;
-
+import com.android.volley.Response;
+import com.android.volley.Response.Listener;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 import com.bacon.teletweet.Pojos.Show;
 import com.bacon.teletweet.Utility.HashtagKeeper;
 import com.bacon.teletweet.Utility.StartingTags;
 import com.bacon.teletweet.Utility.TwitterUtil;
+import twitter4j.QueryResult;
 
 public class TweetCommandCenterActivity extends Activity {
 
@@ -67,8 +63,30 @@ public class TweetCommandCenterActivity extends Activity {
 		// v.setPageMargin(15);
 		v.setBackgroundColor(0xFF333333);
 		v.setAdapter(adapter);
+		
+		getShowImage();
 	}
 
+	private void getShowImage()
+	{
+		final ImageView showImage = (ImageView)findViewById(R.id.showImage);
+		ImageRequest iRequest = new ImageRequest(show.getImageURL(),
+			new Listener<Bitmap>() {
+				@Override
+				public void onResponse(Bitmap response) {
+					showImage.setImageBitmap(response);
+				}
+			}, 0, 0,
+			Bitmap.Config.ARGB_8888, new Response.ErrorListener() {
+				@Override
+				public void onErrorResponse(VolleyError error) {
+					// handle error response
+					// TODO: HANDLE THAT ERROR
+				}
+			});
+		Volley.newRequestQueue(this).add(iRequest);
+	}
+	
 	private void search() {
 		TwitterUtil.search(hashtags, new TwitterUtil.SearchCallback() {
 			@Override
