@@ -1,6 +1,7 @@
 package com.bacon.teletweet;
 
-public class TweetCommandCenterActivity extends Activity
-{
+import android.app.Activity;
+
+public class TweetCommandCenterActivity extends Activity {
 
 }
