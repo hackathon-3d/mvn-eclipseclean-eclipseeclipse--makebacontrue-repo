@@ -11,7 +11,7 @@ import android.webkit.WebViewClient;
  
 public class TwitterAuthenticationActivity extends Activity {
   
- final static String URL = "twitter_authorization_url";
+ public final static String URL = "twitter_authorization_url";
  
  @Override
  protected void onCreate(Bundle savedInstanceState) {
