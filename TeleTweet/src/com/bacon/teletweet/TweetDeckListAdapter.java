@@ -47,17 +47,38 @@ public class TweetDeckListAdapter extends BaseAdapter
 			convertView.setTag(new ViewHolder(convertView));
 		}
 		
-		ViewHolder vh = (ViewHolder)convertView.getTag();
-		TextView tweetBody = vh.getTweetBody();
 		Status tweet = getItem(position);
+		
+		ViewHolder vh = (ViewHolder)convertView.getTag();
+		TextView username = vh.getUserName();
+		TextView userhandle = vh.getUserHandle();
+		TextView tweetTime = vh.getTweetTime();
+		TextView tweetBody = vh.getTweetBody();
+		
+		username.setText(tweet.getUser().getName());
+		userhandle.setText("@"+tweet.getUser().getScreenName());
+		tweetTime.setText(tweet.getCreatedAt().toLocaleString());
 		tweetBody.setText(tweet.getText());
 		return convertView;
 	}
 	
 	public class ViewHolder
 	{
-		private TextView tv;
-		public ViewHolder(View v){tv = (TextView)v.findViewById(R.id.tweetBody);}
-		public TextView getTweetBody(){return tv;}
+		private TextView username;
+		private TextView userhandle;
+		private TextView tweetTime;
+		private TextView tweetBody;
+		
+		public ViewHolder(View v){
+			username = (TextView)v.findViewById(R.id.username);
+			userhandle = (TextView)v.findViewById(R.id.userhandle);
+			tweetTime = (TextView)v.findViewById(R.id.tweetTime);
+			tweetBody = (TextView)v.findViewById(R.id.tweetBody);
+		}
+		
+		public TextView getUserName(){return username;}
+		public TextView getUserHandle(){return userhandle;}
+		public TextView getTweetTime(){return tweetTime;}
+		public TextView getTweetBody(){return tweetBody;}
 	}
 }

@@ -4,8 +4,39 @@
     android:orientation="vertical">
     
 	<TextView
+		android:id="@+id/username"
+		android:layout_width="fill_parent"
+		android:layout_height="wrap_content"
+		android:textSize="20sp"/>
+	
+	<LinearLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:orientation="horizontal" >
+		
+		<TextView
+			android:id="@+id/userhandle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="14sp"/>
+
+		<View
+			android:layout_width="0dp"
+			android:layout_height="0dp"
+			android:layout_weight="1" />
+		
+		<TextView
+			android:id="@+id/tweetTime"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textSize="14sp"/>
+	
+	</LinearLayout>
+	
+	<TextView
 		android:id="@+id/tweetBody"
 		android:layout_width="fill_parent"
-		android:layout_height="wrap_content" />
+		android:layout_height="wrap_content"
+		android:textSize="18sp"/>
 	
 </LinearLayout>
