@@ -13,11 +13,13 @@ public class TweetDeckListAdapter extends BaseAdapter
 {
 	private List<Status> tweets;
 	private Context c;
+	private boolean offColor;
 	
-	public TweetDeckListAdapter(Context pContext, List<Status> pTweets)
+	public TweetDeckListAdapter(Context pContext, List<Status> pTweets, boolean pOffColor)
 	{
 		tweets = pTweets;
 		c = pContext;
+		offColor = pOffColor;
 	}
 	
 	@Override 
@@ -41,6 +43,9 @@ public class TweetDeckListAdapter extends BaseAdapter
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent)
 	{
+		int grayColor = 0xFF222222;
+		int lightColor = 0xFFEEEEEE;
+		
 		if(convertView == null)
 		{
 			convertView = LayoutInflater.from(c).inflate(R.layout.tweet, parent, false);
@@ -59,6 +64,12 @@ public class TweetDeckListAdapter extends BaseAdapter
 		userhandle.setText("@"+tweet.getUser().getScreenName());
 		tweetTime.setText(tweet.getCreatedAt().toLocaleString());
 		tweetBody.setText(tweet.getText());
+		
+		username.setTextColor(offColor?lightColor:grayColor);
+		userhandle.setTextColor(offColor?lightColor:grayColor);
+		tweetTime.setTextColor(offColor?lightColor:grayColor);
+		tweetBody.setTextColor(offColor?lightColor:grayColor);
+		
 		return convertView;
 	}
 	

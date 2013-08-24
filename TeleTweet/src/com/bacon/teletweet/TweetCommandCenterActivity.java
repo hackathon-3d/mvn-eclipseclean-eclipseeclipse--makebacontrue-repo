@@ -98,14 +98,17 @@ public class TweetCommandCenterActivity extends Activity {
 	private PagerAdapter adapter = new PagerAdapter(){
 		@Override public Object instantiateItem(ViewGroup vg, final int pos)
 		{
+			int grayColor = 0xFF222222;
+			int lightColor = 0xFFEEEEEE;
+			
+			RelativeLayout rl = new RelativeLayout(TweetCommandCenterActivity.this);
+			RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.FILL_PARENT);
+			//rlParams.setMargins(10,10,10,10);
+			rl.setBackgroundColor(pos%2==0?grayColor:lightColor);
+			rl.setLayoutParams(rlParams);
+			
 			if(pos < hashtags.size())
 			{
-				RelativeLayout rl = new RelativeLayout(TweetCommandCenterActivity.this);
-				RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.FILL_PARENT);
-				//rlParams.setMargins(10,10,10,10);
-				rl.setBackgroundColor(0xFF222222);
-				rl.setLayoutParams(rlParams);
-	
 				LinearLayout hashTagRow = new LinearLayout(TweetCommandCenterActivity.this);
 				hashTagRow.setId(555);
 				hashTagRow.setOrientation(LinearLayout.HORIZONTAL);
@@ -114,6 +117,7 @@ public class TweetCommandCenterActivity extends Activity {
 				TextView queryName = new TextView(TweetCommandCenterActivity.this);
 				queryName.setText(hashtags.get(pos));
 				queryName.setTextSize(28);
+				queryName.setTextColor(pos%2==0?lightColor:grayColor);
 				hashTagRow.addView(queryName);
 				
 				View v = new View(TweetCommandCenterActivity.this);
@@ -142,7 +146,7 @@ public class TweetCommandCenterActivity extends Activity {
 					params.addRule(RelativeLayout.BELOW, hashTagRow.getId());
 					lv.setLayoutParams(params);
 				
-					lv.setAdapter(new TweetDeckListAdapter(TweetCommandCenterActivity.this, tweets.getTweets()));
+					lv.setAdapter(new TweetDeckListAdapter(TweetCommandCenterActivity.this, tweets.getTweets(), pos%2==0));
 				
 					rl.addView(lv);
 				}
@@ -156,16 +160,9 @@ public class TweetCommandCenterActivity extends Activity {
 					pb.setLayoutParams(lp);
 					rl.addView(pb);
 				}
-			
-				vg.addView(rl);
-			
-				return rl;
 			}
 			else
 			{
-				RelativeLayout rl = new RelativeLayout(TweetCommandCenterActivity.this);
-				rl.setBackgroundColor(0xFFFFFF00);
-				rl.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.FILL_PARENT)); 
 				rl.setClickable(true);
 				rl.setOnClickListener(new View.OnClickListener(){
 					@Override
@@ -177,12 +174,14 @@ public class TweetCommandCenterActivity extends Activity {
 				
 				TextView tv = new TextView(TweetCommandCenterActivity.this);
 				tv.setText("Tap to add hashtag!");
+				tv.setTextSize(20);
+				tv.setTextColor(pos%2==0?lightColor:grayColor);
 				rl.addView(tv);
-				
-				vg.addView(rl);
-				
-				return rl;
 			}
+			
+			vg.addView(rl);
+
+			return rl;
 		}
 		
 		@Override public void destroyItem(ViewGroup vg, int pos, Object view)
