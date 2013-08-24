@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
+import com.bacon.teletweet.Utility.Callback;
 import com.bacon.teletweet.Utility.TwitterUtil;
 
 public class HomeActivity extends Activity {
@@ -27,12 +28,17 @@ public class HomeActivity extends Activity {
 	
 	@Override public void onActivityResult(int request, int result, Intent i)
 	{
-		TwitterUtil.OauthComplete(i);
+		TwitterUtil.OauthComplete(new Callback(){
+			@Override
+			public void callBack()
+			{
+				//go to next screen
+			}
+		}, i);
 	}
 	
 	private void login()
 	{
-
 		TwitterUtil.initAndAwaitAuthenticationResult(this);
 	}
 	

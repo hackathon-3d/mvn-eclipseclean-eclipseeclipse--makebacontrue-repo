@@ -1,24 +1,18 @@
 package com.bacon.teletweet.Utility;
 
-import twitter4j.AsyncTwitter;
-import twitter4j.AsyncTwitterFactory;
-import twitter4j.Query;
-import twitter4j.QueryResult;
-import twitter4j.TwitterAdapter;
-import twitter4j.TwitterException;
-import twitter4j.TwitterListener;
-import twitter4j.auth.AccessToken;
-import twitter4j.auth.RequestToken;
-import twitter4j.conf.ConfigurationBuilder;
+import twitter4j.*;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.util.Log;
-
 import com.bacon.teletweet.TwitterAuthenticationActivity;
 import com.google.gag.annotation.remark.Facepalm;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
+import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterUtil {
 	private static AsyncTwitter twit;
@@ -74,7 +68,7 @@ public class TwitterUtil {
 		}.execute();
 	}
 
-	public static void OauthComplete(final Intent data) {
+	public static void OauthComplete(final Callback cb, final Intent data) {
 		Log.i("TeleTweet", "Hey, I got here!");
 
 		new AsyncTask<Void, Void, AccessToken>() {
@@ -96,7 +90,7 @@ public class TwitterUtil {
 				Log.i("TeleTweet", "C'mon c'mon c'mon");
 				twit.setOAuthAccessToken(tok);
 				authenticated = true;
-				twit.search(new Query("foo"));
+				cb.callBack();
 			}
 		}.execute();
 	}

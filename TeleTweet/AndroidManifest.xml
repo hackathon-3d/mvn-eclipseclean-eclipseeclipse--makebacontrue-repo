@@ -24,8 +24,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.bacon.teletweet.TwitterAuthenticationActivity" >
-        </activity>
+        <activity android:name="com.bacon.teletweet.TwitterAuthenticationActivity" />
+		<activity android:name="com.bacon.teletweet.SplashActivity" />
+		<activity android:name="com.bacon.teletweet.TweetCommandCenterActivity" />
     </application>
 
 </manifest>
