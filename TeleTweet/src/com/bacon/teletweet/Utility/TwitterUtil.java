@@ -10,12 +10,15 @@ import android.os.AsyncTask;
 import android.util.Log;
 import com.bacon.teletweet.TwitterAuthenticationActivity;
 import com.google.gag.annotation.remark.Facepalm;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import twitter4j.auth.AccessToken;
 import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class TwitterUtil {
-	private static AsyncTwitter twit;
+	private static Twitter twit;
 	private static RequestToken rqTok;
 	private static boolean authenticated = false;
 	private static Context context;
@@ -37,7 +40,7 @@ public class TwitterUtil {
 		cb.setOAuthConsumerKey(authVars.CONSUMER_KEY).setOAuthConsumerSecret(
 				authVars.CONSUMER_SECRET);
 
-		twit = new AsyncTwitterFactory(cb.build()).getInstance();
+		twit = new TwitterFactory(cb.build()).getInstance();
 
 		new AsyncTask<Void, Void, RequestToken>() {
 			@Override
@@ -95,67 +98,37 @@ public class TwitterUtil {
 		}.execute();
 	}
 
-	public static void search(Query query, final SearchCallback scb) {
-		TwitterListener li = new TwitterAdapter() {
-			// Um.
-			// So I'm a fan of anonymous stuff, and I'd like if you could pass a
-			// listener in
-			// with each search call.
-			// But even as-is, I'm not sure how twitter4j would handle multiple
-			// listeners.
-			// Hence this hack.
-			private boolean run = false;
-
+	public static void search(List<String> queries, final SearchCallback scb) {
+		
+		new AsyncTask<String, Void, Map<String, QueryResult>>(){
 			@Override
-			public void searched(QueryResult result) {
-				if (run) {
-					return;
+			public Map<String, QueryResult> doInBackground(String... queries)
+			{
+				Map<String, QueryResult> results = new HashMap<String, QueryResult>(2);
+				try
+				{
+					for(String s : queries)
+					{
+						results.put(s, twit.search(new Query(s)));
+					}
 				}
-				scb.searched(result);
-				run = true;
-				// List<Status> twits = result.getTweets();
-				// Log.i("TeleTweet","Got "+twits.size()+" tweets");
-				// Log.i("TeleTweet","Tweet 1 is "+twits.get(0).getText());
-			}
-
-			public void onException(TwitterException e, int method) {
-				if (run) {
-					return;
+				catch(Exception e)
+				{
+					Log.e("TeleTweet","Searching failed in TwitterUtil! "+e.getMessage());
 				}
-				run = true;
-				Log.e("TeleTweet", "Crap, the " + method + " method broke. "
-						+ e.getErrorMessage());
+				return results;
 			}
-		};
-
-		// make tweets!
-
-		twit.addListener(li);
-		twit.search(query);
+			
+			@Override
+			public void onPostExecute(Map<String, QueryResult> results)
+			{
+				scb.searched(results);
+			}
+			
+		}.execute(queries.toArray(new String[0]));
 	}
 
 	public interface SearchCallback {
-		public void searched(QueryResult result);
+		public void searched(Map<String, QueryResult> results);
 	}
-
-	// setup listeners
-	/*
-	 * TwitterListener li = new TwitterAdapter() {
-	 * 
-	 * @Override public void searched(QueryResult result) { List<Status> twits =
-	 * result.getTweets(); Log.i("TeleTweet","Got "+twits.size()+" tweets");
-	 * Log.i("TeleTweet","Tweet 1 is "+twits.get(0).getText()); }
-	 * 
-	 * @Override public void onException(TwitterException e, int method) {
-	 * Log.e("TeleTweet",
-	 * "Crap, the "+method+" method broke. "+e.getErrorMessage()); } };
-	 */
-
-	// make tweets!
-
-	// twit.addListener(li);
-
-	// open authentication view
-
-	/* twit.search(new Query("foo")); */
 }
