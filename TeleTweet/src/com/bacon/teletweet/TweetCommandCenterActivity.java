@@ -50,7 +50,7 @@ public class TweetCommandCenterActivity extends Activity {
 		}
 		
 		@Override public void finishUpdate(ViewGroup vg){}
-		@Override public void startupdate(ViewGroup vg){}
+		//@Override public void startupdate(ViewGroup vg){}
 		@Override public void restoreState(Parcelable p, ClassLoader cl){}
 		@Override public Parcelable saveState(){return null;}
 	};

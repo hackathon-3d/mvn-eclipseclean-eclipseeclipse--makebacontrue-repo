@@ -9,26 +9,29 @@
 		android:layout_weight="1"
 		android:orientation="horizontal">
 		
-		<TextView
-			android:id="@+id/show1"
+		<ImageButton
+			android:id="@+id/slot1"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:background="#ff0000" />
 		
-		<TextView
+		<ImageButton
+		    android:id="@+id/slot2"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:background="#ff00ff" />
 		
-		<TextView
+		<ImageButton
+		    android:id="@+id/slot3"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:background="#ff00ff" />
 		
-		<TextView
+		<ImageButton
+		    android:id="@+id/slot4"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
@@ -42,7 +45,8 @@
 		android:layout_weight="1"
 		android:orientation="horizontal">
 
-		<TextView
+		<ImageButton
+		    android:id="@+id/slot5"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
@@ -66,7 +70,8 @@
 			
 		</RelativeLayout>
 
-		<TextView
+		<ImageButton
+		    android:id="@+id/slot6"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
@@ -80,25 +85,29 @@
 		android:layout_weight="1"
 		android:orientation="horizontal">
 
-		<TextView
+		<ImageButton
+		    android:id="@+id/slot7"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:background="#00ffff" />
 
-		<TextView
+		<ImageButton
+		    android:id="@+id/slot8"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:background="#ff00ff" />
 		
-		<TextView
+		<ImageButton
+		    android:id="@+id/slot9"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
 			android:background="#ff00ff" />
 		
-		<TextView
+		<ImageButton
+		    android:id="@+id/slot10"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"

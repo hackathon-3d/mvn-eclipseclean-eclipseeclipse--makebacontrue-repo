@@ -13,7 +13,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.ImageButton;
 
 import com.bacon.teletweet.Pojos.Show;
 
@@ -27,7 +27,7 @@ public class SplashActivity extends Activity {
 		setContentView(R.layout.home_splash);
 
 		// setup button listeners
-		TextView t = (TextView) findViewById(R.id.show1);
+		ImageButton t = (ImageButton) findViewById(R.id.slot1);
 		t.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
@@ -61,8 +61,19 @@ public class SplashActivity extends Activity {
 			JSONArray jArray = jObject.getJSONArray(SHOW_LISTING_STRING);
 			Log.d("Size", Integer.toString(jArray.length()));
 			for (int i = 0; i < jArray.length(); i++) {
+				final int _i = i;
 				String showName = jArray.getString(i);
-				showsList.add(new Show(showName));
+				// make your show object
+				Show tmpShow = new Show(showName);
+				tmpShow.loadShowInfo(new Show.CallbackInterface() {
+
+					@Override
+					public void showLoaded(Show show) {
+						// TODO Auto-generated method stub
+						updateHollywoodSquare(_i, show);
+					}
+				});
+				showsList.add(tmpShow);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -71,5 +82,45 @@ public class SplashActivity extends Activity {
 
 	public void gotoCommandCenter() {
 		startActivity(new Intent(this, TweetCommandCenterActivity.class), null);
+	}
+
+	public void updateHollywoodSquare(Integer position, Show loadedShow) {
+		ImageButton button = new ImageButton(this);
+		switch (position) {
+		case 0:
+			button = (ImageButton) findViewById(R.id.slot1);
+			break;
+		case 1:
+			button = (ImageButton) findViewById(R.id.slot2);
+			break;
+		case 2:
+			button = (ImageButton) findViewById(R.id.slot3);
+			break;
+		case 3:
+			button = (ImageButton) findViewById(R.id.slot4);
+			break;
+		case 4:
+			button = (ImageButton) findViewById(R.id.slot5);
+			break;
+		case 5:
+			button = (ImageButton) findViewById(R.id.slot6);
+			break;
+		case 6:
+			button = (ImageButton) findViewById(R.id.slot7);
+			break;
+		case 7:
+			button = (ImageButton) findViewById(R.id.slot8);
+			break;
+		case 8:
+			button = (ImageButton) findViewById(R.id.slot9);
+			break;
+		case 9:
+			button = (ImageButton) findViewById(R.id.slot10);
+			break;
+		default:
+			break;
+		}
+
+		button.setImageBitmap(loadedShow.getBitmap());
 	}
 }
