@@ -191,6 +191,7 @@ public class Show implements Parcelable{
 	private void setId(String pId){id=pId;}
 	
 	public String getName(){return name;}
+	public String getDescription(){return description;}
 	
 	@Override public int describeContents(){return 0;}
 }

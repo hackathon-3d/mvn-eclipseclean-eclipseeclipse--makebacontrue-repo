@@ -8,15 +8,15 @@
 		android:layout_height="fill_parent"
 		android:orientation="vertical" >
 		
-		<View
+		<ImageView
 			android:layout_width="fill_parent"
 			android:layout_height="150dp"
-			android:background="#3090ff" />
+			android:id="@+id/showImage" />
 		
 		<TextView
 			android:layout_width="fill_parent"
 			android:layout_height="fill_parent"
-			android:text="This is your favorite show!" />
+			android:id="@+id/showDescription" />
 		
 	</LinearLayout>
 	

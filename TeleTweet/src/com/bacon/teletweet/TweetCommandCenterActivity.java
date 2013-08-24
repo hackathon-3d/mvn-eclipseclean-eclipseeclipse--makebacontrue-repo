@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout.LayoutParams;
 import com.bacon.teletweet.Pojos.Show;
 import com.bacon.teletweet.Utility.HashtagKeeper;
+import com.bacon.teletweet.Utility.StartingTags;
 import com.bacon.teletweet.Utility.TwitterUtil;
 import twitter4j.QueryResult;
 
@@ -40,6 +41,9 @@ public class TweetCommandCenterActivity extends Activity {
 		buildHashTags();
 		
 		search();
+		
+		TextView showDesc = (TextView)findViewById(R.id.showDescription);
+		showDesc.setText(show.getDescription());
 		
 		//setup page adapter
 		ViewPager v = (ViewPager)findViewById(R.id.tweetdecks);
@@ -73,10 +77,7 @@ public class TweetCommandCenterActivity extends Activity {
 		{hashtags = tags; return;}
 		else
 		{
-			hashtags.add("#BreakingBad");
-			hashtags.add("#WalterWhite");
-			hashtags.add("#bryancranston");
-			hashtags.add("#BBWalterWhite");
+			hashtags = StartingTags.getStartingTags(show.getName());
 		}
 	}
 	
@@ -85,6 +86,8 @@ public class TweetCommandCenterActivity extends Activity {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle("Enter tweet");
 		final EditText input = new EditText(this);
+		input.setText(tag);
+		input.setSelection(0);
 		input.setInputType(InputType.TYPE_CLASS_TEXT);
 		builder.setView(input);
 
