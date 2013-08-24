@@ -3,40 +3,52 @@
     android:layout_height="fill_parent"
     android:background="#D4B51E" >
 
-	<ImageButton
-	    android:id="@+id/loginButton"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignParentBottom="true"
-	    android:layout_centerHorizontal="true"
-	    android:layout_marginBottom="25dp"
-	    android:background="@android:color/transparent"
-	    android:src="@drawable/birdy" />
+	<ImageView
+	    android:id="@+id/small"
+	    android:layout_width="100dip"
+	    android:layout_height="100dip"
+	    android:layout_alignRight="@+id/loginButton"
+	    android:layout_alignTop="@+id/big"
+	    android:layout_marginRight="175dp"
+	    android:layout_marginTop="118dp"
+	    android:src="@drawable/small" />
 
 	<ImageView
 	    android:id="@+id/logo"
 	    android:layout_width="wrap_content"
-	    android:layout_height="350dp"
+	    android:layout_height="275dip"
 	    android:layout_above="@+id/big"
-	    android:layout_centerHorizontal="true"
+	    android:layout_alignParentLeft="true"
 	    android:scaleType="centerInside"
 	    android:src="@drawable/logo" />
 
-	<ImageView
-	    android:id="@+id/small"
+	<ImageButton
+	    android:id="@+id/loginButton"
 	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_alignTop="@+id/loginButton"
-	    android:layout_centerHorizontal="true"
-	    android:layout_marginBottom="25dp"
-	    android:src="@drawable/small" />
+	    android:layout_height="300dp"
+	    android:layout_alignParentBottom="true"
+	    android:layout_alignParentLeft="true"
+	    android:layout_marginBottom="39dp"
+	    android:background="@android:color/transparent"
+	    android:scaleType="centerInside"
+	    android:src="@drawable/birdy" />
 
 	<ImageView
 	    android:id="@+id/big"
+	    android:layout_width="115dip"
+	    android:layout_height="115dip"
+	    android:layout_alignRight="@+id/small"
+	    android:layout_centerVertical="true"
+	    android:layout_marginRight="44dp"
+	    android:src="@drawable/big" />
+
+	<ImageView
+	    android:id="@+id/imageView1"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:layout_above="@+id/loginButton"
-	    android:layout_alignRight="@+id/small"
-	    android:src="@drawable/big" />
+	    android:layout_alignParentRight="true"
+	    android:layout_below="@+id/big"
+	    android:scaleType="centerInside"
+	    android:src="@drawable/text" />
 	
 </RelativeLayout>

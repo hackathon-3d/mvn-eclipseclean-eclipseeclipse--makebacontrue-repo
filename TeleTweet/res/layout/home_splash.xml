@@ -1,13 +1,14 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-	android:orientation="vertical">
+	android:orientation="vertical"
+	android:background="#333">
 	
 	<LinearLayout
 	    android:layout_width="fill_parent"
 	    android:layout_height="wrap_content"
 	    android:layout_weight="1"
-	    android:orientation="horizontal" >
+	    android:orientation="horizontal">
 		
 		<ImageButton
 		    android:id="@+id/slot1"
@@ -15,7 +16,7 @@
 		    android:layout_height="match_parent"
 		    android:layout_margin="10dp"
 		    android:layout_weight="1"
-		    android:background="#333"
+		    
 		    android:scaleType="matrix" />
 		
 		<ImageButton
@@ -24,7 +25,6 @@
 		    android:layout_height="match_parent"
 		    android:layout_margin="10dp"
 		    android:layout_weight="1"
-		    android:background="#333"
 		    android:scaleType="matrix" />
 		
 		<ImageButton
@@ -33,7 +33,6 @@
 		    android:layout_height="match_parent"
 		    android:layout_margin="10dp"
 		    android:layout_weight="1"
-		    android:background="#333"
 		    android:scaleType="matrix" />
 		
 		<ImageButton
@@ -42,7 +41,6 @@
 		    android:layout_height="match_parent"
 		    android:layout_margin="10dp"
 		    android:layout_weight="1"
-		    android:background="#333"
 		    android:scaleType="matrix" />
 		
 	</LinearLayout>
@@ -59,14 +57,14 @@
 		    android:layout_height="match_parent"
 		    android:layout_margin="10dp"
 		    android:layout_weight="1"
-		    android:background="#333"
 		    android:scaleType="matrix" />
 
 		<RelativeLayout
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="2"
-			android:background="#ffffff" >
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_margin="10dp"
+		    android:layout_weight="2"
+		    android:background="#ffffff" >
 			
 			<TextView
 				android:id="@+id/appName"
@@ -86,7 +84,6 @@
 		    android:layout_height="match_parent"
 		    android:layout_margin="10dp"
 		    android:layout_weight="1"
-		    android:background="#333"
 		    android:scaleType="matrix" />
 
 />
@@ -105,7 +102,6 @@
 		    android:layout_height="match_parent"
 		    android:layout_margin="10dp"
 		    android:layout_weight="1"
-		    android:background="#333"
 		    android:scaleType="matrix" />
 
 		<ImageButton
@@ -114,7 +110,6 @@
 		    android:layout_height="match_parent"
 		    android:layout_margin="10dp"
 		    android:layout_weight="1"
-		    android:background="#333"
 		    android:scaleType="matrix" />
 		
 		<ImageButton
@@ -123,7 +118,6 @@
 		    android:layout_height="match_parent"
 		    android:layout_margin="10dp"
 		    android:layout_weight="1"
-		    android:background="#333"
 		    android:scaleType="matrix" />
 		
 		<ImageButton
@@ -132,7 +126,6 @@
 		    android:layout_height="match_parent"
 		    android:layout_margin="10dp"
 		    android:layout_weight="1"
-		    android:background="#333"
 		    android:scaleType="matrix" />
 
 	</LinearLayout>

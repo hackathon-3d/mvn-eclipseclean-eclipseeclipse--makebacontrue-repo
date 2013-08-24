@@ -1,0 +1,46 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#D4B51E" >
+
+	<ImageButton
+	    android:id="@+id/loginButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="215dp"
+	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginBottom="25dp"
+	    android:background="@android:color/transparent"
+	    android:scaleType="centerInside"
+	    android:src="@drawable/birdy" />
+
+	<ImageView
+	    android:id="@+id/logo"
+	    android:layout_width="wrap_content"
+	    android:layout_height="200dip"
+	    android:layout_alignParentTop="true"
+	    android:layout_centerHorizontal="true"
+	    android:scaleType="centerInside"
+	    android:src="@drawable/logo" />
+
+	<ImageView
+	    android:id="@+id/big"
+	    android:layout_width="95dip"
+	    android:layout_height="95dip"
+	    android:layout_above="@+id/loginButton"
+	    android:layout_alignRight="@+id/small"
+	    android:layout_marginBottom="28dp"
+	    android:layout_marginRight="21dp"
+	    android:src="@drawable/big" />
+
+	<ImageView
+	    android:id="@+id/small"
+	    android:layout_width="75dip"
+	    android:layout_height="75dip"
+	    android:layout_alignLeft="@+id/loginButton"
+	    android:layout_below="@+id/logo"
+	    android:layout_marginLeft="193dp"
+	    android:layout_marginTop="66dp"
+	    android:src="@drawable/small" />
+	
+</RelativeLayout>
