@@ -4,10 +4,13 @@ import android.widget.*;
 import java.util.*;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.text.InputType;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,21 +33,26 @@ public class TweetCommandCenterActivity extends Activity {
 		hashtags = new ArrayList<String>(5);
 		buildHashTags();
 		
-		TwitterUtil.search(hashtags, new TwitterUtil.SearchCallback(){
-			@Override
-			public void searched(Map<String, QueryResult> results)
-			{
-				Log.i("TeleTweet","THAT'S how you do Async, bitches.");
-				tweetLists.clear();
-				tweetLists.putAll(results);
-				buildHashTags();
-				adapter.notifyDataSetChanged();
-			}
-		});
+		search();
 		
 		//setup page adapter
 		ViewPager v = (ViewPager)findViewById(R.id.tweetdecks);
+		v.setPageMargin(15);
 		v.setAdapter(adapter);
+	}
+	
+	private void search()
+	{
+		TwitterUtil.search(hashtags, new TwitterUtil.SearchCallback(){
+				@Override
+				public void searched(Map<String, QueryResult> results)
+				{
+					Log.i("TeleTweet","THAT'S how you do Async, bitches.");
+					tweetLists.clear();
+					tweetLists.putAll(results);
+					adapter.notifyDataSetChanged();
+				}
+			});
 	}
 	
 	private void buildHashTags()
@@ -56,45 +64,123 @@ public class TweetCommandCenterActivity extends Activity {
 		hashtags.add("#BBWalterWhite");
 	}
 	
-	private PagerAdapter adapter = new PagerAdapter(){
-		@Override public Object instantiateItem(ViewGroup vg, int pos)
-		{
-			RelativeLayout rl = new RelativeLayout(TweetCommandCenterActivity.this);
-			//rl.setOrientation(LinearLayout.VERTICAL);
-
-			TextView queryName = new TextView(TweetCommandCenterActivity.this);
-			queryName.setId(555);
-			queryName.setText(hashtags.get(pos));
-			queryName.setTextSize(20);
-			rl.addView(queryName);
-			
-			if(tweetLists != null && tweetLists.get(hashtags.get(pos)) != null)
+	public void addNewHashtag()
+	{
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle("Enter hashtag");
+		final EditText input = new EditText(this);
+		input.setInputType(InputType.TYPE_CLASS_TEXT);
+		builder.setView(input);
+		
+		builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which)
 			{
-				QueryResult tweets = tweetLists.get(hashtags.get(pos));
+				hashtags.add("#"+input.getText().toString());
+				adapter.notifyDataSetChanged();
+				search();
+			}
+		});
+		
+		builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener(){
+			@Override
+			public void onClick(DialogInterface dialog, int which)
+			{
+				dialog.cancel();
+			}
+		});
+		
+		builder.create().show();
+	}
+	
+	private PagerAdapter adapter = new PagerAdapter(){
+		@Override public Object instantiateItem(ViewGroup vg, final int pos)
+		{
+			if(pos < hashtags.size())
+			{
+				RelativeLayout rl = new RelativeLayout(TweetCommandCenterActivity.this);
+				RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.FILL_PARENT);
+				//rlParams.setMargins(10,10,10,10);
+				rl.setBackgroundColor(0xFF222222);
+				rl.setLayoutParams(rlParams);
+	
+				LinearLayout hashTagRow = new LinearLayout(TweetCommandCenterActivity.this);
+				hashTagRow.setId(555);
+				hashTagRow.setOrientation(LinearLayout.HORIZONTAL);
+				rl.addView(hashTagRow);
+				
+				TextView queryName = new TextView(TweetCommandCenterActivity.this);
+				queryName.setText(hashtags.get(pos));
+				queryName.setTextSize(28);
+				hashTagRow.addView(queryName);
+				
+				View v = new View(TweetCommandCenterActivity.this);
+				LinearLayout.LayoutParams p = new LinearLayout.LayoutParams(0,0,1);
+				v.setLayoutParams(p);
+				hashTagRow.addView(v);
+				
+				ImageView iv = new ImageView(TweetCommandCenterActivity.this);
+				iv.setImageDrawable(getResources().getDrawable(android.R.drawable.ic_delete));
+				iv.setOnClickListener(new View.OnClickListener(){
+					@Override
+					public void onClick(View v)
+					{
+						hashtags.remove(hashtags.get(pos));
+						adapter.notifyDataSetChanged();
+					}
+				});
+				hashTagRow.addView(iv);
+				
+				if(tweetLists != null && tweetLists.get(hashtags.get(pos)) != null)
+				{
+					QueryResult tweets = tweetLists.get(hashtags.get(pos));
+				
+					ListView lv = new ListView(TweetCommandCenterActivity.this);
+					RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.FILL_PARENT);
+					params.addRule(RelativeLayout.BELOW, hashTagRow.getId());
+					lv.setLayoutParams(params);
+				
+					lv.setAdapter(new TweetDeckListAdapter(TweetCommandCenterActivity.this, tweets.getTweets()));
+				
+					rl.addView(lv);
+				}
+				else
+				{
+					Log.i("TeleTweet","Skipping "+hashtags.get(pos)+" for some reason");
+					ProgressBar pb = new ProgressBar(TweetCommandCenterActivity.this);
+					LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+					lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+					lp.addRule(RelativeLayout.CENTER_VERTICAL);
+					pb.setLayoutParams(lp);
+					rl.addView(pb);
+				}
 			
-				ListView lv = new ListView(TweetCommandCenterActivity.this);
-				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.FILL_PARENT);
-				params.addRule(RelativeLayout.BELOW, queryName.getId());
-				lv.setLayoutParams(params);
+				vg.addView(rl);
 			
-				lv.setAdapter(new TweetDeckListAdapter(TweetCommandCenterActivity.this, tweets.getTweets()));
-			
-				rl.addView(lv);
+				return rl;
 			}
 			else
 			{
-				Log.i("TeleTweet","Skipping "+hashtags.get(pos)+" for some reason");
-				ProgressBar pb = new ProgressBar(TweetCommandCenterActivity.this);
-				LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-				lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
-				lp.addRule(RelativeLayout.CENTER_VERTICAL);
-				pb.setLayoutParams(lp);
-				rl.addView(pb);
+				RelativeLayout rl = new RelativeLayout(TweetCommandCenterActivity.this);
+				rl.setBackgroundColor(0xFFFFFF00);
+				rl.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.FILL_PARENT)); 
+				rl.setClickable(true);
+				rl.setOnClickListener(new View.OnClickListener(){
+					@Override
+					public void onClick(View v)
+					{
+						addNewHashtag();
+					}
+				});
+				
+				TextView tv = new TextView(TweetCommandCenterActivity.this);
+				tv.setText("Tap to add hashtag!");
+				rl.addView(tv);
+				
+				vg.addView(rl);
+				
+				return rl;
 			}
-			
-			vg.addView(rl);
-			
-			return rl;
 		}
 		
 		@Override public void destroyItem(ViewGroup vg, int pos, Object view)
@@ -103,7 +189,7 @@ public class TweetCommandCenterActivity extends Activity {
 		}
 		
 		@Override public int getCount(){
-			return hashtags.size();
+			return hashtags.size()+1;
 		}
 		
 		@Override public int getItemPosition(Object obj){return POSITION_NONE;}
