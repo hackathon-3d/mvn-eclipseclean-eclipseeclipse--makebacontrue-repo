@@ -57,12 +57,9 @@ public class TwitterUtil {
 
 			@Override
 			public void onPostExecute(RequestToken tok) {
-				Log.i("TeleTweet", "Wow, that works?");
 				rqTok = tok;
 				Intent i = new Intent(context,
 						TwitterAuthenticationActivity.class);
-				String authToken = Uri.parse(rqTok.getAuthorizationURL()).getQueryParameter("oauth_token");
-				Log.i("TeleTweet", "Token is " + authToken);
 				i.putExtra(TwitterAuthenticationActivity.URL,
 						rqTok.getAuthorizationURL()
 								+ "&oauth_callback=http://www.oob.com");
@@ -72,7 +69,6 @@ public class TwitterUtil {
 	}
 
 	public static void OauthComplete(final Callback cb, final Intent data) {
-		Log.i("TeleTweet", "Hey, I got here!");
 
 		new AsyncTask<Void, Void, AccessToken>() {
 			@Override
@@ -109,7 +105,16 @@ public class TwitterUtil {
 				{
 					for(String s : queries)
 					{
-						results.put(s, twit.search(new Query(s)));
+						QueryResult qr = twit.search(new Query(s));
+						if(qr == null)
+						{
+							Log.i("TeleTweet","What gives?");
+						}
+						else
+						{
+							Log.i("TeleTweet","So it's fine.");
+						}
+						results.put(s, qr);
 					}
 				}
 				catch(Exception e)

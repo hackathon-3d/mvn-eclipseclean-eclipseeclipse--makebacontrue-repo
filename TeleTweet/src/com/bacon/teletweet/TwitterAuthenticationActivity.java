@@ -34,7 +34,6 @@ public class TwitterAuthenticationActivity extends Activity {
  }
   
  private void checkURL(String url) {
-	 Log.i("TeleTweet",url);
   if(url.contains("oauth_verifier")){
 	  String verifier = Uri.parse(url).getQueryParameter("oauth_verifier");
 	  Intent i = new Intent();
