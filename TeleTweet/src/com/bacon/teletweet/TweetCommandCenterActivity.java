@@ -242,12 +242,12 @@ public class TweetCommandCenterActivity extends Activity {
 				TextView queryName = new TextView(
 						TweetCommandCenterActivity.this);
 				LinearLayout.LayoutParams queryParams = new LinearLayout.LayoutParams(
-						0, LinearLayout.LayoutParams.FILL_PARENT, 1);
+						0, LinearLayout.LayoutParams.WRAP_CONTENT, 1);
 				queryName.setLayoutParams(queryParams);
 				queryName.setGravity(Gravity.CENTER_VERTICAL
 						| Gravity.CENTER_HORIZONTAL);
 				queryName.setText(hashtags.get(pos));
-				queryName.setTextSize(28);
+				queryName.setTextSize(24);
 				queryName.setTextColor(pos % 2 == 0 ? lightColor : grayColor);
 				hashTagRow.addView(queryName);
 
