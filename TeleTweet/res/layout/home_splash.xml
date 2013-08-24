@@ -14,28 +14,32 @@
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:background="#ff0000" />
+			android:background="#333"
+			android:scaleType="fitXY" />
 		
 		<ImageButton
 		    android:id="@+id/slot2"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:background="#ff00ff" />
+			android:background="#333" 
+			android:scaleType="fitXY" />
 		
 		<ImageButton
 		    android:id="@+id/slot3"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:background="#ff00ff" />
+			android:background="#333"
+			android:scaleType="fitXY" />
 		
 		<ImageButton
 		    android:id="@+id/slot4"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:background="#ff00ff" />
+			android:background="#333"
+			android:scaleType="fitXY" />
 		
 	</LinearLayout>
 	
@@ -50,7 +54,8 @@
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:background="#00ff00" />
+			android:background="#333"
+			android:scaleType="fitXY" />
 
 		<RelativeLayout
 			android:layout_width="0dp"
@@ -75,7 +80,8 @@
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:background="#ff00ff" />
+			android:background="#333"
+			android:scaleType="fitXY" />/>
 		
 	</LinearLayout>
 	
@@ -90,28 +96,32 @@
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:background="#00ffff" />
+			android:background="#333"
+			android:scaleType="fitXY" />
 
 		<ImageButton
 		    android:id="@+id/slot8"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:background="#ff00ff" />
+			android:background="#333"
+			android:scaleType="fitXY" />
 		
 		<ImageButton
 		    android:id="@+id/slot9"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:background="#ff00ff" />
+			android:background="#333"
+			android:scaleType="fitXY" />
 		
 		<ImageButton
 		    android:id="@+id/slot10"
 			android:layout_width="0dp"
 			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:background="#0000ff" />
+			android:background="#333"
+			android:scaleType="fitXY" />
 
 	</LinearLayout>
 </LinearLayout>

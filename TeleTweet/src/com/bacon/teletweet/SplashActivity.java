@@ -120,7 +120,7 @@ public class SplashActivity extends Activity {
 		default:
 			break;
 		}
-
+		Log.d("Showing", "image");
 		button.setImageBitmap(loadedShow.getBitmap());
 	}
 }
