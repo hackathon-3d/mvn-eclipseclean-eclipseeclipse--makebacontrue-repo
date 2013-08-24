@@ -1,18 +1,23 @@
 package com.bacon.teletweet;
 
-import android.app.Activity;
-import android.content.Intent;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.View;
-import android.widget.ImageButton;
-import com.bacon.teletweet.Pojos.Show;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageButton;
+
+import com.bacon.teletweet.Pojos.Show;
 
 public class SplashActivity extends Activity {
 	private static final String SHOW_LISTING_STRING = "showlisting";
@@ -21,8 +26,12 @@ public class SplashActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+		getActionBar().hide();
+
 		setContentView(R.layout.home_splash);
 
+		setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		// lets start grabbing our movie images
 		InputStream inputStream = getResources().openRawResource(
 				R.raw.movieseed);
@@ -40,7 +49,6 @@ public class SplashActivity extends Activity {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		Log.v("Text Data", byteArrayOutputStream.toString());
 		try {
 
 			// Parse that JSON!
@@ -69,13 +77,15 @@ public class SplashActivity extends Activity {
 	}
 
 	public void gotoCommandCenter(Show s) {
-		if(s == null)
-		{Log.i("TeleTweet", "Show was null!");return;}
-		
+		if (s == null) {
+			Log.i("TeleTweet", "Show was null!");
+			return;
+		}
+
 		Intent i = new Intent(this, TweetCommandCenterActivity.class);
-		i.putExtra("Show",s);
+		i.putExtra("Show", s);
 		startActivity(i, null);
-		Log.i("TeleTweet","Starting yaay");
+		Log.i("TeleTweet", "Starting yaay");
 	}
 
 	public void updateHollywoodSquare(Integer position, Show loadedShow) {
@@ -119,10 +129,10 @@ public class SplashActivity extends Activity {
 		button.setTag(showsList.get(position));
 		final ImageButton buttonRef = button;
 		button.setOnClickListener(new View.OnClickListener() {
-				@Override
-				public void onClick(View v) {
-					gotoCommandCenter((Show)buttonRef.getTag());
-				}
-			});
+			@Override
+			public void onClick(View v) {
+				gotoCommandCenter((Show) buttonRef.getTag());
+			}
+		});
 	}
 }
