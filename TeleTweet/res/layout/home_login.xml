@@ -1,13 +1,42 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
-    
-	<Button
-		android:id="@+id/loginButton"
-		android:layout_marginTop="20dp"
-		android:layout_width="wrap_content"
-		android:layout_height="wrap_content"
-		android:layout_centerHorizontal="true"
-		android:text="Login with Twitter" />
+    android:layout_height="fill_parent"
+    android:background="#D4B51E" >
+
+	<ImageButton
+	    android:id="@+id/loginButton"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignParentBottom="true"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginBottom="25dp"
+	    android:background="@android:color/transparent"
+	    android:src="@drawable/birdy" />
+
+	<ImageView
+	    android:id="@+id/logo"
+	    android:layout_width="wrap_content"
+	    android:layout_height="350dp"
+	    android:layout_above="@+id/big"
+	    android:layout_centerHorizontal="true"
+	    android:scaleType="centerInside"
+	    android:src="@drawable/logo" />
+
+	<ImageView
+	    android:id="@+id/small"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_alignTop="@+id/loginButton"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginBottom="25dp"
+	    android:src="@drawable/small" />
+
+	<ImageView
+	    android:id="@+id/big"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@+id/loginButton"
+	    android:layout_alignRight="@+id/small"
+	    android:src="@drawable/big" />
 	
 </RelativeLayout>

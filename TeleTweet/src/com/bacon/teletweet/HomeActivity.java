@@ -5,49 +5,48 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
+
 import com.bacon.teletweet.Utility.Callback;
 import com.bacon.teletweet.Utility.TwitterUtil;
 
 public class HomeActivity extends Activity {
-	
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_login);
-		
-		Button b = (Button)findViewById(R.id.loginButton);
-		b.setOnClickListener(new View.OnClickListener(){
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.home_login);
+
+		ImageButton b = (ImageButton) findViewById(R.id.loginButton);
+		b.setOnClickListener(new View.OnClickListener() {
 			@Override
-			public void onClick(View v)
-			{
+			public void onClick(View v) {
 				login();
 			}
 		});
 	}
-	
-	@Override public void onActivityResult(int request, int result, Intent i)
-	{
-		TwitterUtil.OauthComplete(new Callback(){
+
+	@Override
+	public void onActivityResult(int request, int result, Intent i) {
+		TwitterUtil.OauthComplete(new Callback() {
 			@Override
-			public void callBack()
-			{
-				//go to next screen
-				startActivity(new Intent(HomeActivity.this, SplashActivity.class), null);
+			public void callBack() {
+				// go to next screen
+				startActivity(new Intent(HomeActivity.this,
+						SplashActivity.class), null);
 			}
 		}, i);
 	}
-	
-	private void login()
-	{
+
+	private void login() {
 		TwitterUtil.initAndAwaitAuthenticationResult(this);
 	}
-	
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-    
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.home, menu);
+		return true;
+	}
+
 }
