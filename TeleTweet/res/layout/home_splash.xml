@@ -4,58 +4,63 @@
 	android:orientation="vertical">
 	
 	<LinearLayout
-		android:layout_width="fill_parent"
-		android:layout_height="0dp"
-		android:layout_weight="1"
-		android:orientation="horizontal">
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:orientation="horizontal" >
 		
 		<ImageButton
-			android:id="@+id/slot1"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:background="#333"
-			android:scaleType="fitXY" />
+		    android:id="@+id/slot1"
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_margin="10dp"
+		    android:layout_weight="1"
+		    android:background="#333"
+		    android:scaleType="matrix" />
 		
 		<ImageButton
 		    android:id="@+id/slot2"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:background="#333" 
-			android:scaleType="fitXY" />
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_margin="10dp"
+		    android:layout_weight="1"
+		    android:background="#333"
+		    android:scaleType="matrix" />
 		
 		<ImageButton
 		    android:id="@+id/slot3"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:background="#333"
-			android:scaleType="fitXY" />
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_margin="10dp"
+		    android:layout_weight="1"
+		    android:background="#333"
+		    android:scaleType="matrix" />
 		
 		<ImageButton
 		    android:id="@+id/slot4"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:background="#333"
-			android:scaleType="fitXY" />
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_margin="10dp"
+		    android:layout_weight="1"
+		    android:background="#333"
+		    android:scaleType="matrix" />
 		
 	</LinearLayout>
 	
 	<LinearLayout
-		android:layout_width="fill_parent"
-		android:layout_height="wrap_content" 
-		android:layout_weight="1"
-		android:orientation="horizontal">
+	    android:layout_width="fill_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_weight="1"
+	    android:orientation="horizontal" >
 
 		<ImageButton
 		    android:id="@+id/slot5"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:background="#333"
-			android:scaleType="fitXY" />
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_margin="10dp"
+		    android:layout_weight="1"
+		    android:background="#333"
+		    android:scaleType="matrix" />
 
 		<RelativeLayout
 			android:layout_width="0dp"
@@ -77,11 +82,14 @@
 
 		<ImageButton
 		    android:id="@+id/slot6"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:background="#333"
-			android:scaleType="fitXY" />/>
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_margin="10dp"
+		    android:layout_weight="1"
+		    android:background="#333"
+		    android:scaleType="matrix" />
+
+/>
 		
 	</LinearLayout>
 	
@@ -93,35 +101,39 @@
 
 		<ImageButton
 		    android:id="@+id/slot7"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:background="#333"
-			android:scaleType="fitXY" />
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_margin="10dp"
+		    android:layout_weight="1"
+		    android:background="#333"
+		    android:scaleType="matrix" />
 
 		<ImageButton
 		    android:id="@+id/slot8"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:background="#333"
-			android:scaleType="fitXY" />
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_margin="10dp"
+		    android:layout_weight="1"
+		    android:background="#333"
+		    android:scaleType="matrix" />
 		
 		<ImageButton
 		    android:id="@+id/slot9"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:background="#333"
-			android:scaleType="fitXY" />
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_margin="10dp"
+		    android:layout_weight="1"
+		    android:background="#333"
+		    android:scaleType="matrix" />
 		
 		<ImageButton
 		    android:id="@+id/slot10"
-			android:layout_width="0dp"
-			android:layout_height="match_parent"
-			android:layout_weight="1"
-			android:background="#333"
-			android:scaleType="fitXY" />
+		    android:layout_width="0dp"
+		    android:layout_height="match_parent"
+		    android:layout_margin="10dp"
+		    android:layout_weight="1"
+		    android:background="#333"
+		    android:scaleType="matrix" />
 
 	</LinearLayout>
 </LinearLayout>
