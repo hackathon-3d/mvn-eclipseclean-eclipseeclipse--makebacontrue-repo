@@ -1,3 +1,5 @@
+package com.bacon.teletweet;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -6,8 +8,9 @@ import android.util.Log;
 import android.view.ViewGroup.LayoutParams;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import com.bacon.teletweet.R;
  
-public class TwitterWebView extends Activity {
+public class TwitterAuthenticationActivity extends Activity {
   
  final static String URL = "twitter_authorization_url";
  
@@ -27,38 +30,29 @@ public class TwitterWebView extends Activity {
    }
     
   });
-  Log.d(TwitterWebView.class.getName(), "Loading Url: " + getIntent().getStringExtra(URL));
   webView.loadUrl(getIntent().getStringExtra(URL));
   setContentView(webView, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
  }
   
  private void checkURL(String url) {
-  if(url.contains(getString(R.string.twitter_callbackGranted))) {
+  if(url.contains("oauth_verifier=")) {
    Uri uri = Uri.parse(url);
             String oauthVerifier = uri.getQueryParameter("oauth_verifier");
             Intent i = new Intent();
             i.putExtra("oauth_verifier", oauthVerifier);
-            Log.d(TwitterWebView.class.getName(), "OK, Url: " + url);
             setResult(RESULT_OK, i);
             finish();
         }
-  else if(url.contains(getString(R.string.twitter_callbackDenied))) {
-   Log.d(TwitterWebView.class.getName(), "Unauthorized, Url: " + url);
+  else if(url.contains("callback?denied")) {
             setResult(RESULT_FIRST_USER);
             finish();
   }
   //Banned URLs
-  else if(url.contains(getString(R.string.twitter_home))    ||
-    url.contains(getString(R.string.twitter_appSettings))  ||
-    url.contains(getString(R.string.twitter_tos))    ||
-    url.contains(getString(R.string.twitter_privacy))   ||
-    url.contains(getString(R.string.website)))     {
-   Log.d(TwitterWebView.class.getName(), "Unauthorized, Url: " + url);
+  else if(url.contains("twitter.com/home")){
             setResult(RESULT_FIRST_USER);
             finish();
   }
   else {
-   Log.d(TwitterWebView.class.getName(), "Passed Url: " + url);
   }
    
  }

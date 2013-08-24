@@ -3,14 +3,22 @@ package com.bacon.teletweet;
 import twitter4j.*;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import com.bacon.teletweet.Utility.authVars;
 import java.util.List;
+import twitter4j.auth.AccessToken;
+import twitter4j.auth.RequestToken;
 import twitter4j.conf.ConfigurationBuilder;
 
 public class HomeActivity extends Activity {
 
+	private AsyncTwitter twit;
+	private RequestToken rqTok;
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -25,8 +33,7 @@ public class HomeActivity extends Activity {
 		//setup config
 		ConfigurationBuilder cb = new ConfigurationBuilder();
 		cb.setDebugEnabled(true);
-		cb.setOAuthConsumerKey("").setOAuthConsumerSecret("")
-		.setOAuthAccessToken("").setOAuthAccessTokenSecret("");
+		cb.setOAuthConsumerKey(authVars.CONSUMER_KEY).setOAuthConsumerSecret(authVars.CONSUMER_SECRET);
 		
 		//setup listeners
 		TwitterListener li = new TwitterAdapter()
@@ -45,10 +52,60 @@ public class HomeActivity extends Activity {
 		};
 		
 		//make tweets!
-		AsyncTwitter twit = new AsyncTwitterFactory(cb.build()).getInstance();
+		twit = new AsyncTwitterFactory(cb.build()).getInstance();
 		twit.addListener(li);
-		twit.search(new Query("foo"));
+		
+		//open authentication view
+		
+		new AsyncTask<Void, Void, RequestToken>(){
+			@Override public RequestToken doInBackground(Void... blah)
+			{
+				try
+				{
+					return twit.getOAuthRequestToken();
+				}
+				catch (TwitterException e)
+				{
+					Log.i("TeleTweet","Man, I couldn't even launch the activity. "+e.getMessage());
+					return null;
+				}
+			}
+			
+			@Override public void onPostExecute(RequestToken tok)
+			{
+				Log.i("TeleTweet","Wow, that works?");
+				AsyncDone(tok);
+			}
+		}.execute();
+		
+		/*twit.search(new Query("foo"));*/
 		Log.i("TeleTweet","Welp, here goes nothing!");
+	}
+	
+	public void AsyncDone(RequestToken t)
+	{
+		rqTok = t;
+		Intent i = new Intent(this, TwitterAuthenticationActivity.class);
+		i.putExtra(TwitterAuthenticationActivity.URL, rqTok.getAuthorizationURL());
+		startActivityForResult(i, 5);
+	}
+	
+	@Override
+	public void onActivityResult(int request, int result, Intent data)
+	{
+		super.onActivityResult(request, result, data);
+		Log.i("TeleTweet","Hey, I got here!");
+		
+		try
+		{
+			AccessToken ac = twit.getOAuthAccessToken(rqTok, data.getStringExtra("oauth_verifier"));
+			twit.setOAuthAccessToken(ac);
+			twit.search(new Query("foo"));
+		}
+		catch (TwitterException e)
+		{
+			Log.e("TeleTweet","bleh");
+		}
 	}
 	
     @Override
