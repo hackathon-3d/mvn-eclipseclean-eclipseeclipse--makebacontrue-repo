@@ -48,10 +48,13 @@ public class TweetCommandCenterActivity extends Activity {
 		TextView showDesc = (TextView)findViewById(R.id.showDescription);
 		showDesc.setText(show.getDescription());
 		
+		TextView showTitle = (TextView)findViewById(R.id.showTitle);
+		showTitle.setText(show.getName());
+		
 		//setup page adapter
 		ViewPager v = (ViewPager)findViewById(R.id.tweetdecks);
-		v.setPageMargin(15);
-		v.setPadding(7,7,7,7);
+		//v.setPageMargin(15);
+		v.setBackgroundColor(0xFF333333);
 		v.setAdapter(adapter);
 	}
 	
@@ -77,9 +80,9 @@ public class TweetCommandCenterActivity extends Activity {
 		};
 		
 	@Override
-	public void onDestroy()
+	public void onPause()
 	{
-		super.onDestroy();
+		super.onPause();
 		refresher.removeCallbacks(refresh);
 	}
 	
@@ -172,7 +175,8 @@ public class TweetCommandCenterActivity extends Activity {
 			
 			RelativeLayout rl = new RelativeLayout(TweetCommandCenterActivity.this);
 			RelativeLayout.LayoutParams rlParams = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.FILL_PARENT);
-			//rlParams.setMargins(10,10,10,10);
+			rlParams.setMargins(5,10,5,10);
+			rl.setPadding(7,7,7,7);
 			rl.setBackgroundColor(pos%2==0?grayColor:lightColor);
 			rl.setLayoutParams(rlParams);
 			
