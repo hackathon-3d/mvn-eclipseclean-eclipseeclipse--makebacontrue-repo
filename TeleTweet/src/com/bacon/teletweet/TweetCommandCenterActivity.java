@@ -63,6 +63,7 @@ public class TweetCommandCenterActivity extends Activity {
 			//rl.setOrientation(LinearLayout.VERTICAL);
 
 			TextView queryName = new TextView(TweetCommandCenterActivity.this);
+			queryName.setId(555);
 			queryName.setText(hashtags.get(pos));
 			queryName.setTextSize(20);
 			rl.addView(queryName);
@@ -72,7 +73,8 @@ public class TweetCommandCenterActivity extends Activity {
 				QueryResult tweets = tweetLists.get(hashtags.get(pos));
 			
 				ListView lv = new ListView(TweetCommandCenterActivity.this);
-				ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,ViewGroup.LayoutParams.FILL_PARENT);
+				RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.FILL_PARENT,RelativeLayout.LayoutParams.FILL_PARENT);
+				params.addRule(RelativeLayout.BELOW, queryName.getId());
 				lv.setLayoutParams(params);
 			
 				lv.setAdapter(new TweetDeckListAdapter(TweetCommandCenterActivity.this, tweets.getTweets()));
