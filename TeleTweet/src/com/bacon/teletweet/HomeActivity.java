@@ -6,7 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
-
+import android.widget.Toast;
+import com.bacon.teletweet.HomeActivity;
 import com.bacon.teletweet.Utility.Callback;
 import com.bacon.teletweet.Utility.TwitterUtil;
 
@@ -32,14 +33,21 @@ public class HomeActivity extends Activity {
 
 	@Override
 	public void onActivityResult(int request, int result, Intent i) {
-		TwitterUtil.OauthComplete(new Callback() {
-			@Override
-			public void callBack() {
-				// go to next screen
-				startActivity(new Intent(HomeActivity.this,
-						SplashActivity.class), null);
-			}
-		}, i);
+		if(result == RESULT_OK)
+		{
+			TwitterUtil.OauthComplete(new Callback() {
+				@Override
+				public void callBack() {
+					// go to next screen
+					startActivity(new Intent(HomeActivity.this,
+							SplashActivity.class), null);
+				}
+			}, i);
+		}
+		else if(result == RESULT_FIRST_USER)
+		{
+			Toast.makeText(HomeActivity.this,"Login failed... try pressing back and launching Halloo again.", Toast.LENGTH_LONG).show();
+		}
 	}
 
 	private void login() {
