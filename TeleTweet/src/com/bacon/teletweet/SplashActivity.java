@@ -27,11 +27,12 @@ public class SplashActivity extends Activity {
 		setContentView(R.layout.home_splash);
 
 		// setup button listeners
-		ImageButton t = (ImageButton) findViewById(R.id.slot1);
+		final ImageButton t = (ImageButton) findViewById(R.id.slot1);
 		t.setOnClickListener(new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				gotoCommandCenter();
+				Log.i("TeleTweet","I did a thing");
+				gotoCommandCenter((Show)t.getTag());
 			}
 		});
 
@@ -80,8 +81,14 @@ public class SplashActivity extends Activity {
 		}
 	}
 
-	public void gotoCommandCenter() {
-		startActivity(new Intent(this, TweetCommandCenterActivity.class), null);
+	public void gotoCommandCenter(Show s) {
+		if(s == null)
+		{Log.i("TeleTweet", "Show was null!");return;}
+		
+		Intent i = new Intent(this, TweetCommandCenterActivity.class);
+		i.putExtra("Show",s);
+		startActivity(i, null);
+		Log.i("TeleTweet","Starting yaay");
 	}
 
 	public void updateHollywoodSquare(Integer position, Show loadedShow) {
@@ -122,5 +129,6 @@ public class SplashActivity extends Activity {
 		}
 		Log.d("Showing", "image");
 		button.setImageBitmap(loadedShow.getBitmap());
+		button.setTag(showsList.get(position));
 	}
 }
