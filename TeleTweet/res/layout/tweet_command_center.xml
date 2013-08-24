@@ -9,20 +9,23 @@
 		android:orientation="vertical" >
 		
 		<ImageView
-			android:layout_width="fill_parent"
-			android:layout_height="150dp"
-			android:id="@+id/showImage" />
+		    android:id="@+id/showImage"
+		    android:layout_width="fill_parent"
+		    android:layout_height="150dp"
+		    android:layout_margin="15dip" />
 		
 		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="wrap_content"
-			android:textSize="22sp"
-			android:id="@+id/showTitle" />
+		    android:id="@+id/showTitle"
+		    android:layout_width="fill_parent"
+		    android:layout_height="wrap_content"
+		    android:layout_margin="15dp"
+		    android:textSize="22sp" />
 		
 		<TextView
-			android:layout_width="fill_parent"
-			android:layout_height="fill_parent"
-			android:id="@+id/showDescription" />
+		    android:id="@+id/showDescription"
+		    android:layout_width="fill_parent"
+		    android:layout_height="fill_parent"
+		    android:layout_margin="15dip" />
 		
 	</LinearLayout>
 	
