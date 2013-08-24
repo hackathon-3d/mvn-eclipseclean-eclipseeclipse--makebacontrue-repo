@@ -33,14 +33,6 @@
 	    android:src="@drawable/big" />
 
 	<ImageView
-	    android:id="@+id/small"
-	    android:layout_width="75dip"
-	    android:layout_height="75dip"
-	    android:layout_below="@+id/logo"
-	    android:layout_centerHorizontal="true"
-	    android:src="@drawable/small" />
-
-	<ImageView
 	    android:id="@+id/imageView1"
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
@@ -48,5 +40,14 @@
 	    android:layout_centerVertical="true"
 	    android:layout_marginRight="75dp"
 	    android:src="@drawable/text" />
+
+	<ImageView
+	    android:id="@+id/small"
+	    android:layout_width="75dip"
+	    android:layout_height="75dip"
+	    android:layout_below="@+id/logo"
+	    android:layout_centerHorizontal="true"
+	    android:layout_marginTop="18dp"
+	    android:src="@drawable/small" />
 	
 </RelativeLayout>
