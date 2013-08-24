@@ -1,5 +1,6 @@
 package com.bacon.teletweet;
 
+import android.widget.*;
 import java.util.*;
 
 import android.app.Activity;
@@ -10,11 +11,9 @@ import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.RelativeLayout.LayoutParams;
 import com.bacon.teletweet.Utility.TwitterUtil;
 import twitter4j.QueryResult;
-import twitter4j.Status;
 
 public class TweetCommandCenterActivity extends Activity {
 
@@ -29,17 +28,16 @@ public class TweetCommandCenterActivity extends Activity {
 		tweetLists = new HashMap<String, QueryResult>(5);
 		
 		hashtags = new ArrayList<String>(5);
-		hashtags.add("#BreakingBad");
-		hashtags.add("#WalterWhite");
-		hashtags.add("#bryancranston");
-		hashtags.add("#BBWalterWhite");
+		buildHashTags();
 		
 		TwitterUtil.search(hashtags, new TwitterUtil.SearchCallback(){
 			@Override
 			public void searched(Map<String, QueryResult> results)
 			{
 				Log.i("TeleTweet","THAT'S how you do Async, bitches.");
-				tweetLists = results;
+				tweetLists.clear();
+				tweetLists.putAll(results);
+				buildHashTags();
 				adapter.notifyDataSetChanged();
 			}
 		});
@@ -49,43 +47,64 @@ public class TweetCommandCenterActivity extends Activity {
 		v.setAdapter(adapter);
 	}
 	
+	private void buildHashTags()
+	{
+		hashtags.clear();
+		hashtags.add("#BreakingBad");
+		hashtags.add("#WalterWhite");
+		hashtags.add("#bryancranston");
+		hashtags.add("#BBWalterWhite");
+	}
+	
 	private PagerAdapter adapter = new PagerAdapter(){
 		@Override public Object instantiateItem(ViewGroup vg, int pos)
 		{
-			LinearLayout ll = new LinearLayout(TweetCommandCenterActivity.this);
-			ll.setOrientation(LinearLayout.VERTICAL);
+			RelativeLayout rl = new RelativeLayout(TweetCommandCenterActivity.this);
+			//rl.setOrientation(LinearLayout.VERTICAL);
+
+			TextView queryName = new TextView(TweetCommandCenterActivity.this);
+			queryName.setText(hashtags.get(pos));
+			queryName.setTextSize(20);
+			rl.addView(queryName);
 			
-			TextView test = new TextView(TweetCommandCenterActivity.this);
-			test.setText(hashtags.get(pos));
-			test.setTextSize(20);
-			ll.addView(test);
-			
-			TextView firstTweet = new TextView(TweetCommandCenterActivity.this);
-			List<Status> tweetList = tweetLists.get(hashtags.get(pos)).getTweets();
-			if(tweetList.size() > 0)
+			if(tweetLists != null && tweetLists.get(hashtags.get(pos)) != null)
 			{
-				Status s = tweetList.get(0);
-				firstTweet.setText(s.getText());
+				QueryResult tweets = tweetLists.get(hashtags.get(pos));
+			
+				ListView lv = new ListView(TweetCommandCenterActivity.this);
+				ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.FILL_PARENT,ViewGroup.LayoutParams.FILL_PARENT);
+				lv.setLayoutParams(params);
+			
+				lv.setAdapter(new TweetDeckListAdapter(TweetCommandCenterActivity.this, tweets.getTweets()));
+			
+				rl.addView(lv);
 			}
 			else
 			{
-				Log.i("TeleTweet","Query "+hashtags.get(pos)+" has no tweets!");
+				Log.i("TeleTweet","Skipping "+hashtags.get(pos)+" for some reason");
+				ProgressBar pb = new ProgressBar(TweetCommandCenterActivity.this);
+				LayoutParams lp = new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+				lp.addRule(RelativeLayout.CENTER_HORIZONTAL);
+				lp.addRule(RelativeLayout.CENTER_VERTICAL);
+				pb.setLayoutParams(lp);
+				rl.addView(pb);
 			}
-			ll.addView(firstTweet);
 			
-			vg.addView(ll);
+			vg.addView(rl);
 			
-			return ll;
+			return rl;
 		}
 		
 		@Override public void destroyItem(ViewGroup vg, int pos, Object view)
 		{
-			vg.removeView((LinearLayout)view);
+			vg.removeView((RelativeLayout)view);
 		}
 		
 		@Override public int getCount(){
-			return tweetLists.size();
+			return hashtags.size();
 		}
+		
+		@Override public int getItemPosition(Object obj){return POSITION_NONE;}
 		
 		@Override public float getPageWidth(int pos)
 		{
