@@ -221,8 +221,8 @@ public class TweetCommandCenterActivity extends Activity {
 						TweetCommandCenterActivity.this);
 				hashTagRow.setId(555);
 				hashTagRow.setOrientation(LinearLayout.HORIZONTAL);
-				hashTagRow.setBackgroundColor(pos % 2 == 0 ? miniGray
-						: miniLight);
+				// hashTagRow.setBackgroundColor(pos % 2 == 0 ? miniGray:
+				// miniLight);
 				LinearLayout.LayoutParams toomanyparams = new LinearLayout.LayoutParams(
 						LinearLayout.LayoutParams.FILL_PARENT,
 						LinearLayout.LayoutParams.WRAP_CONTENT);
