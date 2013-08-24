@@ -11,4 +11,7 @@ public class authVars {
     public static final String REQUEST_TOKEN_URL = "https://api.twitter.com/oauth/request_token";
     public static final String AUTHORIZE_TOKEN_URL = "https://api.twitter.com/oauth/authorize/callback";
     public static final String ACCESS_TOKEN_URL = "https://api.twitter.com/oauth/access_token";
+    public static final String FAN_ART_TV_API_KEY = "a233efda3ee941c96fbde1deeb9b3009";
+    public static final String TVDB_API_KEY = "8D4528385E593610";
+
 }
