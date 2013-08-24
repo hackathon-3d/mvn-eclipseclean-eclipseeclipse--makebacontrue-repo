@@ -192,6 +192,6 @@ public class Show implements Parcelable{
 	
 	public String getName(){return name;}
 	public String getDescription(){return description;}
-	
+	public String getImageURL(){return imageURL;}
 	@Override public int describeContents(){return 0;}
 }

@@ -39,8 +39,7 @@ public class HomeActivity extends Activity {
 				@Override
 				public void callBack() {
 					// go to next screen
-					startActivity(new Intent(HomeActivity.this,
-							SplashActivity.class), null);
+					startActivity(new Intent(HomeActivity.this,SplashActivity.class), null);
 				}
 			}, i);
 		}
