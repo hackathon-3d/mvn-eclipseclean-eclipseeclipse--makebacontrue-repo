@@ -11,15 +11,27 @@
 		
 		<TextView
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:text="hmm" />
+			android:background="#ff0000" />
 		
 		<TextView
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:text="hmm" />
+			android:background="#ff00ff" />
+		
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:background="#ff00ff" />
+		
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:background="#ff00ff" />
 		
 	</LinearLayout>
 	
@@ -31,16 +43,38 @@
 
 		<TextView
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:text="hmm" />
+			android:background="#00ff00" />
+
+		<RelativeLayout
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="2"
+			android:background="#ffffff" >
+			
+			<TextView
+				android:id="@+id/appName"
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerHorizontal="true"
+				android:layout_marginTop="10dp"
+				android:text="Dis our app." />
+			
+			<Button
+				android:layout_width="wrap_content"
+				android:layout_height="wrap_content"
+				android:layout_centerHorizontal="true"
+				android:text="Login with Twitter" />
+			
+		</RelativeLayout>
 
 		<TextView
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:text="hmm" />
-
+			android:background="#ff00ff" />
+		
 	</LinearLayout>
 	
 	<LinearLayout
@@ -51,15 +85,27 @@
 
 		<TextView
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:text="hmm" />
+			android:background="#00ffff" />
 
 		<TextView
 			android:layout_width="0dp"
-			android:layout_height="wrap_content"
+			android:layout_height="match_parent"
 			android:layout_weight="1"
-			android:text="hmm" />
+			android:background="#ff00ff" />
+		
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:background="#ff00ff" />
+		
+		<TextView
+			android:layout_width="0dp"
+			android:layout_height="match_parent"
+			android:layout_weight="1"
+			android:background="#0000ff" />
 
 	</LinearLayout>
 </LinearLayout>

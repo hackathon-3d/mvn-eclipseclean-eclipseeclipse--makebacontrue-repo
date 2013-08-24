@@ -64,8 +64,7 @@ public class TwitterUtil {
 				rqTok = tok;
 				Intent i = new Intent(context,
 						TwitterAuthenticationActivity.class);
-				String authToken = Uri.parse(rqTok.getAuthorizationURL())
-						.getQueryParameter("oauth_token");
+				String authToken = Uri.parse(rqTok.getAuthorizationURL()).getQueryParameter("oauth_token");
 				Log.i("TeleTweet", "Token is " + authToken);
 				i.putExtra(TwitterAuthenticationActivity.URL,
 						rqTok.getAuthorizationURL()
