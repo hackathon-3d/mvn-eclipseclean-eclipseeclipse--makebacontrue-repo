@@ -76,7 +76,9 @@ public class TweetCommandCenterActivity extends Activity {
 			@Override
 			public void onClick(DialogInterface dialog, int which)
 			{
-				hashtags.add("#"+input.getText().toString());
+				String tag = input.getText().toString();
+				if(!tag.contains("#")){tag = "#"+tag;}
+				hashtags.add(tag);
 				adapter.notifyDataSetChanged();
 				search();
 			}
