@@ -1,18 +1,21 @@
 package com.bacon.teletweet.Pojos;
 
 import java.io.StringReader;
+import java.util.Iterator;
 
 import javax.xml.xpath.XPath;
 import javax.xml.xpath.XPathConstants;
 import javax.xml.xpath.XPathExpressionException;
 import javax.xml.xpath.XPathFactory;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.xml.sax.InputSource;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.net.Uri;
-import android.util.Log;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -91,7 +94,26 @@ public class Show {
 								new Response.Listener<String>() {
 									@Override
 									public void onResponse(String response) {
-										Log.d("IMAGE RESPONSE", response);
+										try {
+											JSONObject jObject = new JSONObject(
+													response);
+											Iterator<String> keys = jObject
+													.keys();
+											jObject = jObject
+													.getJSONObject(keys.next());
+											JSONArray jArray = jObject
+													.getJSONArray("clearlogo");
+											imageURL = jArray.getString(0);
+											getImageFromURL();
+										} catch (JSONException e) {
+											// TODO Auto-generated catch block
+											e.printStackTrace();
+										}
+									}
+
+									private void getImageFromURL() {
+										// TODO Auto-generated method stub
+
 									}
 								}, EL);
 						mRequestQueue.add(imgRequest);
